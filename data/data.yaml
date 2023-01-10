@@ -1,0 +1,5 @@
+train: data/train/images
+val: data/valid/images
+
+nc: 30 #class数
+names: ['Y_SM_inner_RH','Y_SM_inner_LH','Y_WH_RH','Y_WH_LH','Y_SM_outer_RH','Y_SM_outer_LH','Y_WHxRI_RH','Y_WHxRI_LH','Y_SM_RH','Y_SM_LH','Y_SM_RH_ASSY','Y_SM_LH_ASSY','Karakuri_cart','Push_cart','Person','Helmet','Right_hand','Left_hand','C_SM_inner_RH','C_SM_inner_LH','C_WH_RH','C_WH_LH','C_SM_outer_RH','C_SM_outer_LH','C_WHxRI_RH','C_WHxRI_LH','C_SM_RH','C_SM_LH','C_SM_RH_ASSY','C_SM_LH_ASSY',]
