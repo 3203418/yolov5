@@ -94,7 +94,7 @@ def run(
     # Directories
     save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
     (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
-    (save_dir / 'Images' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
+    (save_dir / 'images' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
     # 保存フォルダ作成ーーーーーーーーーー
     # Images_dir = 'Images'
     # Labels_dir = 'Labels'
@@ -159,7 +159,7 @@ def run(
             p = Path(p)  # to Path
             save_path = str(save_dir / p.name)  # im.jpg
             txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # im.txt
-            img_path = str(save_dir / 'Images' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # im.txt
+            img_path = str(save_dir / 'images' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # im.txt
             s += '%gx%g ' % im.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             imc = im0.copy() if save_crop else im0  # for save_crop
@@ -184,13 +184,13 @@ def run(
                     Conf_num = conf.tolist()#認識率を取得
                     print(Conf_num)
                     cls_num = cls.tolist()#クラス名（番号）を取得
-                    if cls_num == 14.0 and 0.92 > Conf_num > 0.91:#指定のクラス名と認識率でフィルターをかける
-                        output_start = True
-                        #情報出力ーーーーー
+                    if cls_num == 14.0:
                         with open(f'{csv_name}conf_memo.csv', 'a') as f:#認識率CSV出力
                             f.write(str(Conf_num) + '\n')
                         
-                    
+                    if cls_num == 14.0 and 0.92 > Conf_num > 0.91:#指定のクラス名と認識率でフィルターをかける
+                        output_start = True
+
                     if save_img or save_crop or view_img:  # Add bbox to image
                         c = int(cls)  # integer class
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')

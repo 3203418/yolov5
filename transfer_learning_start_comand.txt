@@ -1,0 +1,1 @@
+python3 train.py --weights runs/train/exp4/weights/best.pt --data data.yaml --cfg yolov5s.yaml --batch-size 16
