@@ -210,7 +210,10 @@ def run(
                 # time_name = "{0:%Y%m%d_%H%M%S}".format(time)
                 for *xyxy, conf, cls in reversed(det):
                     xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
+
+                    
                     line = (cls, *xywh) if save_conf else (cls, *xywh)  # label format
+
                     with open(f'{txt_path}.txt', 'a') as f:#認識したラベルの位置情報を保存
                         f.write(('%g ' * len(line)).rstrip() % line + '\n')
                 cv2.imwrite(img_path + '.PNG', base_img)#imc=動画を分解後の素の静止画を保存

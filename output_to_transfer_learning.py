@@ -15,7 +15,7 @@ train_path = pathlib.Path('./data/train')
 train_path.rename(pathlib.Path('./data/' + time_name + "_train"))
 pathlib.Path('./data/train').mkdir()
 valid_path = pathlib.Path('./data/valid')
-valid_path.rename(pathlib.Path('./data/' + time_name + "_valid"))
+#valid_path.rename(pathlib.Path('./data/' + time_name + "_valid"))
 
 #出力されたデータを検索し、学習用フォルダへ移動
 output_file = Path('./runs/detect/')
