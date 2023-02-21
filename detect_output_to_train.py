@@ -188,7 +188,7 @@ def run(
                         with open(f'{csv_name}conf_memo.csv', 'a') as f:#認識率CSV出力
                             f.write(str(Conf_num) + '\n')
                         
-                    if cls_num == 14.0 and 0.92 > Conf_num > 0.91:#指定のクラス名と認識率でフィルターをかける
+                    if cls_num == 14.0 and 0.98 > Conf_num > 0.91:#指定のクラス名と認識率でフィルターをかける
                         output_start = True
 
                     if save_img or save_crop or view_img:  # Add bbox to image
@@ -208,14 +208,17 @@ def run(
             if save_txt and output_start:  # Write to file
                 # time = datetime.datetime.now()
                 # time_name = "{0:%Y%m%d_%H%M%S}".format(time)
+
                 for *xyxy, conf, cls in reversed(det):
-                    xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-
-                    
-                    line = (cls, *xywh) if save_conf else (cls, *xywh)  # label format
-
-                    with open(f'{txt_path}.txt', 'a') as f:#認識したラベルの位置情報を保存
-                        f.write(('%g ' * len(line)).rstrip() % line + '\n')
+                    Conf_Num = conf.tolist()#認識率を取得
+                    cls_Num = cls.tolist()#クラス名（番号）を取得
+                    if cls_Num == 14.0 and 0.91 > Conf_Num:#指定のクラス名と認識率でフィルターをかける
+                        next
+                    else:
+                        xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
+                        line = (cls, *xywh) if save_conf else (cls, *xywh)  # label format
+                        with open(f'{txt_path}.txt', 'a') as f:#認識したラベルの位置情報を保存
+                            f.write(('%g ' * len(line)).rstrip() % line + '\n')
                 cv2.imwrite(img_path + '.PNG', base_img)#imc=動画を分解後の素の静止画を保存
             
             # Stream results

@@ -1,0 +1,1 @@
+python3 detect_output_to_train.py --weights runs/train/exp22/weights/best.pt --source camera2_20220531_master.mp4 --save-txt --save-conf --view-img
